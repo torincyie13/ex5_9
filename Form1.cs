@@ -29,6 +29,8 @@ namespace ex5_7
         {
             try
             {
+                // point to help file
+                hlpAuthors.HelpNamespace = Application.StartupPath + "\\authors.chm";
                 string path = Path.GetFullPath("SQLBooksDB.mdf");
                 // connect to books database
                 booksConnection = new
@@ -117,7 +119,7 @@ namespace ex5_7
             try
             {
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Error deleting record.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -242,6 +244,16 @@ namespace ex5_7
             {
                 txtYearBorn.Focus();
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Help.ShowHelp(this, hlpAuthors.HelpNamespace);
+        }
+
+        private void btnDone_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

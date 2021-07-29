@@ -43,6 +43,8 @@ namespace ex5_7
             this.btnAddNew = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnDone = new System.Windows.Forms.Button();
+            this.hlpAuthors = new System.Windows.Forms.HelpProvider();
+            this.btnHelp = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -126,7 +128,7 @@ namespace ex5_7
             // 
             this.btnEdit.Location = new System.Drawing.Point(118, 200);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(64, 20);
+            this.btnEdit.Size = new System.Drawing.Size(64, 28);
             this.btnEdit.TabIndex = 8;
             this.btnEdit.Text = "&Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
@@ -136,7 +138,7 @@ namespace ex5_7
             // 
             this.btnSave.Location = new System.Drawing.Point(218, 200);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(64, 20);
+            this.btnSave.Size = new System.Drawing.Size(64, 28);
             this.btnSave.TabIndex = 9;
             this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -146,7 +148,7 @@ namespace ex5_7
             // 
             this.btnCancel.Location = new System.Drawing.Point(317, 200);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(64, 20);
+            this.btnCancel.Size = new System.Drawing.Size(64, 28);
             this.btnCancel.TabIndex = 10;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -156,7 +158,7 @@ namespace ex5_7
             // 
             this.btnAddNew.Location = new System.Drawing.Point(118, 234);
             this.btnAddNew.Name = "btnAddNew";
-            this.btnAddNew.Size = new System.Drawing.Size(64, 20);
+            this.btnAddNew.Size = new System.Drawing.Size(64, 23);
             this.btnAddNew.TabIndex = 11;
             this.btnAddNew.Text = "&Add New";
             this.btnAddNew.UseVisualStyleBackColor = true;
@@ -166,7 +168,7 @@ namespace ex5_7
             // 
             this.btnDelete.Location = new System.Drawing.Point(218, 234);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(64, 20);
+            this.btnDelete.Size = new System.Drawing.Size(64, 23);
             this.btnDelete.TabIndex = 12;
             this.btnDelete.Text = "&Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -176,16 +178,28 @@ namespace ex5_7
             // 
             this.btnDone.Location = new System.Drawing.Point(317, 234);
             this.btnDone.Name = "btnDone";
-            this.btnDone.Size = new System.Drawing.Size(64, 20);
+            this.btnDone.Size = new System.Drawing.Size(64, 23);
             this.btnDone.TabIndex = 13;
             this.btnDone.Text = "D&one";
             this.btnDone.UseVisualStyleBackColor = true;
+            this.btnDone.Click += new System.EventHandler(this.btnDone_Click);
+            // 
+            // btnHelp
+            // 
+            this.btnHelp.Location = new System.Drawing.Point(218, 266);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(64, 25);
+            this.btnHelp.TabIndex = 14;
+            this.btnHelp.Text = "&Help";
+            this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.button1_Click);
             // 
             // frmAuthors
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(502, 281);
+            this.ClientSize = new System.Drawing.Size(502, 298);
+            this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.btnDone);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAddNew);
@@ -201,7 +215,9 @@ namespace ex5_7
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.hlpAuthors.SetHelpNavigator(this, System.Windows.Forms.HelpNavigator.TableOfContents);
             this.Name = "frmAuthors";
+            this.hlpAuthors.SetShowHelp(this, true);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Authors";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAuthors_FormClosing);
@@ -227,5 +243,7 @@ namespace ex5_7
         private System.Windows.Forms.Button btnAddNew;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnDone;
+        private System.Windows.Forms.HelpProvider hlpAuthors;
+        private System.Windows.Forms.Button btnHelp;
     }
 }
