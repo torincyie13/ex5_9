@@ -10,27 +10,27 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.IO;
 
-namespace ex5_7
+namespace ex5_9
 {
-    public partial class frmAuthors : Form
+    public partial class frmPublishers : Form
     {
-        public frmAuthors()
+        public frmPublishers()
         {
             InitializeComponent();
         }
 
         SqlConnection booksConnection;
-        SqlCommand authorsCommand;
-        SqlDataAdapter authorsAdapter;
-        DataTable authorsTable;
-        CurrencyManager authorsManager;
+        SqlCommand publishersCommand;
+        SqlDataAdapter publishersAdapter;
+        DataTable publishersTable;
+        CurrencyManager publishersManager;
 
-        private void frmAuthors_Load(object sender, EventArgs e)
+        private void frmPublishers_Load(object sender, EventArgs e)
         {
             try
             {
                 // point to help file
-                hlpAuthors.HelpNamespace = Application.StartupPath + "\\authors.chm";
+                hlpPublishers.HelpNamespace = Application.StartupPath + "\\Publishers.chm";
                 string path = Path.GetFullPath("SQLBooksDB.mdf");
                 // connect to books database
                 booksConnection = new
@@ -38,55 +38,62 @@ namespace ex5_7
                     "Integrated Security=True; Connect Timeout=30; User Instance=True");
                 booksConnection.Open();
                 // establish command object
-                authorsCommand = new SqlCommand("Select * from Authors ORDER BY Author", booksConnection);
+                publishersCommand = new SqlCommand("Select * From Publishers ORDER BY Name", booksConnection);
                 // establish data adapter/data table
-                authorsAdapter = new SqlDataAdapter();
-                authorsAdapter.SelectCommand = authorsCommand;
-                authorsTable = new DataTable();
-                authorsAdapter.Fill(authorsTable);
+                publishersAdapter = new SqlDataAdapter();
+                publishersAdapter.SelectCommand = publishersCommand;
+                publishersTable = new DataTable();
+                publishersAdapter.Fill(publishersTable);
                 // bind controls to data table
-                txtAuthorID.DataBindings.Add("Text", authorsTable, "Au_ID");
-                txtAuthorName.DataBindings.Add("Text", authorsTable, "Author");
-                txtYearBorn.DataBindings.Add("Text", authorsTable, "Year_Born");
+                txtPubID.DataBindings.Add("Text", publishersTable, "PubID");
+                txtPubName.DataBindings.Add("Text", publishersTable, "Name");
+                txtCompanyName.DataBindings.Add("Text", publishersTable, "Company_Name");
+                txtPubAddress.DataBindings.Add("Text", publishersTable, "Address");
+                txtPubCity.DataBindings.Add("Text", publishersTable, "City");
+                txtPubState.DataBindings.Add("Text", publishersTable, "State");
+                txtPubZip.DataBindings.Add("Text", publishersTable, "Zip");
+                txtPubTelephone.DataBindings.Add("Text", publishersTable, "Telephone");
+                txtPubFax.DataBindings.Add("Text", publishersTable, "FAX");
+                txtPubComments.DataBindings.Add("Text", publishersTable, "Fax");
                 // estalish currency manager
-                authorsManager = (CurrencyManager)
-                    this.BindingContext[authorsTable];
+                publishersManager = (CurrencyManager)
+                    this.BindingContext[publishersTable];
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error establishing Authors table.", MessageBoxButtons.OK);
+                MessageBox.Show(ex.Message, "Error establishing Publishers table.", MessageBoxButtons.OK);
                 return;
             }
                 this.Show();
                 SetState("View");
         }
 
-        private void frmAuthors_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmPublishers_FormClosing(object sender, FormClosingEventArgs e)
         {
             // close the connection
             booksConnection.Close();
             // dispose of the objects
             booksConnection.Dispose();
-            authorsCommand.Dispose();
-            authorsAdapter.Dispose();
-            authorsTable.Dispose();
+            publishersCommand.Dispose();
+            publishersAdapter.Dispose();
+            publishersTable.Dispose();
         }
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            if (authorsManager.Position == 0)
+            if (publishersManager.Position == 0)
             {
                 Console.Beep();
             }
-            authorsManager.Position--;
+            publishersManager.Position--;
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (authorsManager.Position == authorsManager.Count - 1)
+            if (publishersManager.Position == publishersManager.Count - 1)
             {
                 Console.Beep();
             }
-            authorsManager.Position++;
+            publishersManager.Position++;
         }
 
 
@@ -130,10 +137,17 @@ namespace ex5_7
             switch (appState)
             {
                 case "View":
-                    txtAuthorID.BackColor = Color.White;
-                    txtAuthorID.ForeColor = Color.Black;
-                    txtAuthorName.ReadOnly = true;
-                    txtYearBorn.ReadOnly = true;
+                    txtPubID.BackColor = Color.White;
+                    txtPubID.ForeColor = Color.Black;
+                    txtPubName.ReadOnly = true;
+                    txtCompanyName.ReadOnly = true;
+                    txtPubAddress.ReadOnly = true;
+                    txtPubComments.ReadOnly = true;
+                    txtPubState.ReadOnly = true;
+                    txtPubZip.ReadOnly = true;
+                    txtPubTelephone.ReadOnly = true;
+                    txtPubFax.ReadOnly = true;
+                    txtPubComments.ReadOnly = true;
                     btnPrevious.Enabled = true;
                     btnNext.Enabled = true;
                     btnAddNew.Enabled = true;
@@ -142,13 +156,20 @@ namespace ex5_7
                     btnEdit.Enabled = true;
                     btnDelete.Enabled = true;
                     btnDelete.Enabled = true;
-                    txtAuthorName.Focus();
+                    txtPubName.Focus();
                     break;
                 default: // Add or Edit if not View
-                    txtAuthorID.BackColor = Color.Red;
-                    txtAuthorID.ForeColor = Color.White;
-                    txtAuthorName.ReadOnly = false;
-                    txtYearBorn.ReadOnly = false;
+                    txtPubID.BackColor = Color.Red;
+                    txtPubID.ForeColor = Color.White;
+                    txtPubName.ReadOnly = false;
+                    txtCompanyName.ReadOnly = false;
+                    txtPubAddress.ReadOnly = false;
+                    txtPubComments.ReadOnly = false;
+                    txtPubState.ReadOnly = false;
+                    txtPubZip.ReadOnly = false;
+                    txtPubTelephone.ReadOnly = false;
+                    txtPubFax.ReadOnly = false;
+                    txtPubComments.ReadOnly = false;
                     btnPrevious.Enabled = false;
                     btnNext.Enabled = false;
                     btnAddNew.Enabled = false;
@@ -157,7 +178,7 @@ namespace ex5_7
                     btnEdit.Enabled = false;
                     btnDelete.Enabled = false;
                     btnDelete.Enabled = false;
-                    txtAuthorName.Focus();
+                    txtPubName.Focus();
                     break;
             }
         }
@@ -185,51 +206,18 @@ namespace ex5_7
             SetState("View");
         }
 
-        private void txtYearBorn_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((e.KeyChar >= '0' && e.KeyChar <= '9') || (int)e.KeyChar == 8)
-            {
-                // Acceptable keystrokes
-                e.Handled = false;
-            }
-            else if ((int)e.KeyChar == 13)
-            {
-                txtAuthorName.Focus();
-            }
-            else
-            {
-                e.Handled = true;
-                Console.Beep();
-            }
-        }
-
         private bool ValidateData()
         {
             string message = "";
-            int inputYear, currentYear;
             bool allOK = true;
 
             // Check for name
 
-            if (txtAuthorName.Text.Trim().Equals(""))
+            if (txtPubName.Text.Trim().Equals(""))
             {
-                message = "You must enter an Author Name." + "\r\n";
-                txtAuthorName.Focus();
+                message = "You must enter an Publisher Name." + "\r\n";
+                txtPubName.Focus();
                 allOK = false;
-            }
-
-            // Check length and range on Year Born
-
-            if (!txtYearBorn.Text.Trim().Equals(""))
-            {
-                inputYear = Convert.ToInt32(txtYearBorn.Text);
-                currentYear = DateTime.Now.Year;
-                if (inputYear > currentYear || inputYear < currentYear - 150)
-                {
-                    message += "Year born must be between " + (currentYear - 150).ToString() + " and " + currentYear.ToString();
-                    txtYearBorn.Focus();
-                    allOK = false;
-                }
             }
             if (!allOK)
             {
@@ -240,20 +228,50 @@ namespace ex5_7
 
         private void txtAuthorName_KeyPress(object sender, KeyPressEventArgs e)
         {
+            TextBox whichBox = (TextBox)sender;
             if ((int)e.KeyChar == 13)
             {
-                txtYearBorn.Focus();
+                switch (whichBox.Name)
+                {
+                    case "txtPubName":
+                        txtCompanyName.Focus();
+                        break;
+                    case "txtCompanyName":
+                        txtPubAddress.Focus();
+                        break;
+                    case "txtPubAddress":
+                        txtPubCity.Focus();
+                        break;
+                    case "txtPubCity":
+                        txtPubState.Focus();
+                        break;
+                    case "txtPubState":
+                        txtPubZip.Focus();
+                        break;
+                    case "txtPubZip":
+                        txtPubFax.Focus();
+                        break;
+                    case "txtPubFax":
+                        txtPubTelephone.Focus();
+                        break;
+                    case "txtPubTelephone":
+                        txtPubComments.Focus();
+                        break;
+                    case "txtPubComments":
+                        txtPubName.Focus();
+                        break;
+                }
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Help.ShowHelp(this, hlpAuthors.HelpNamespace);
         }
 
         private void btnDone_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
 
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            Help.ShowHelp(this, hlpPublishers.HelpNamespace);
         }
     }
 }

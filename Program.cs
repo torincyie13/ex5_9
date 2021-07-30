@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ex5_7
+namespace ex5_9
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace ex5_7
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmAuthors());
+            Application.Run(new frmPublishers());
         }
     }
 }
